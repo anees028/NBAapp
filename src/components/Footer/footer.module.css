@@ -1,0 +1,19 @@
+.footer{
+    background: #242424;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img{
+    height: 20px;
+    padding: 10px;
+}
+
+.right{
+    flex-grow: 1;
+    color: #878787;
+    font-size:12px;
+}
+
