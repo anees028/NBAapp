@@ -1,0 +1,29 @@
+.featured_item{
+    position: relative;
+}
+
+/* Reference to LINK */
+.featured_item a{
+    position: absolute;
+    width: 90%;
+    bottom: 0px;
+    text-decoration: none;
+    right: 0px;
+}
+
+.featured_image{
+    height: 330px;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+.featured_caption{
+    color: white;
+    top: 0px;
+    width: 90%;
+    padding: 20px;
+    font-weight: 300;
+    font-size:28px;
+    box-sizing: border-box;
+}
+
