@@ -1,0 +1,37 @@
+.videoTitle{
+    font-size: 20px;
+    text-align: center;
+    margin: 20px;
+    font-weight: 300;
+    color: #353535;
+}
+
+.videosListItem_wrapper{
+    display: flex;
+    border-bottom: 2px solid #d5d5d5;
+    background: #fff;
+}
+
+.videosListItem_wrapper h2{
+    font-size: 13px;
+    color: #525252;
+}
+
+.left{
+    background-size: cover !important;
+    opacity: 0.8;
+}
+.left div{
+    width: 90px;
+    height: 90px;
+    background-size: 40px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+}
+
+.right{
+    flex-grow: 1;
+    padding: 10px;
+}
+
+

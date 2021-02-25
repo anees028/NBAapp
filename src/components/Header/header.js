@@ -6,6 +6,7 @@ import SideNav from './SideNav/sideNav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
+
 const Header = (props) => {
     //importing picture from PUBLIC_URL..... 
     let pic = process.env.PUBLIC_URL;
