@@ -44,7 +44,9 @@ class VideosList extends Component {
         .then( response =>{
             this.setState({
                 //Storing default state and then updating default state with new state...
-                videos:[ ...this.state.videos, ...response.data ]
+                videos:[ ...this.state.videos, ...response.data ],
+                start,
+                end
             })
         })
     }
