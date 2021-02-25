@@ -66,6 +66,7 @@
     "react-router-dom": "^5.2.0",
     "react-simple-sidenav": "^2.0.0",
     "react-slick": "^0.28.0",
+    "react-transition-group": "^4.4.1",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
     "sass-loader": "^10.0.5",
