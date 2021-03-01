@@ -7,11 +7,9 @@ import styles from '../../articles.module.css';
 
 //importting components...
 import Header from './header';
-import Body from './body';
-
 
 class NewsArticles extends Component {
-
+    
     state={
         article:[],
         team:[],
@@ -42,6 +40,7 @@ class NewsArticles extends Component {
 
     render() {
 
+        let pic = process.env.PUBLIC_URL;
         const article = this.state.article;
         const team = this.state.team;
 
@@ -52,7 +51,18 @@ class NewsArticles extends Component {
                     date={article.date}
                     author={article.author}
                 />
-                <Body  />
+
+                <div className={styles.articleBody}>
+                    <h1>{article.title}</h1>
+                    <div className={styles.articleImage}
+                        style={{
+                            background:`url(${pic}/images/articles/${article.image})`
+                        }}
+                    ></div>
+                    <div className={styles.articleText}>
+                        {article.body}
+                    </div>
+                </div>
             </div>
         )
     }
