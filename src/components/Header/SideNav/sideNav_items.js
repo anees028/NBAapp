@@ -34,8 +34,8 @@ const SideNavItems = () => {
         {
             type:style.option,
             icon:<PlayArrowIcon />,
-            text:'Video',
-            link:'/video',
+            text:'Videos',
+            link:'/videos',
         },
         {
             type:style.option,
