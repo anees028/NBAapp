@@ -25,7 +25,7 @@ const SideNavItems = (props) => {
             type:style.option,
             icon: <HomeIcon/>,
             text:'Home',
-            link:'/',
+            link:'/home',
             login:''
         },
         {

@@ -25,6 +25,7 @@ const Routes = (props) => {
                 <PublicRoute {...props} restricted={false} path="/articles/:id" exact component={NewsArticle} />
                 <PublicRoute {...props} restricted={false} path="/videos/:id" exact component={VideoArticle} /> 
                 <PrivateRoute {...props} path="/dashboard" exact component={Dashboard} />
+                <PublicRoute {...props} restricted={false} path="/home" exact component={Home} /> 
             </Switch>
         </Layout>
 
