@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+//Using WITHROUTER will inject the route information inside this component.
+import { Link, withRouter } from 'react-router-dom';
+import { firebase } from '../../../firebase';
 
 // import FontAwesome from 'react-fontawesome';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,8 +16,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import style from './sideNav.module.css';
 
-const SideNavItems = () => {
-
+const SideNavItems = (props) => {
+    console.log(props)
     //const usingicon= [ {faHome, faNewspaper, faPlayCircle} ]
 
     const items = [
@@ -24,47 +26,96 @@ const SideNavItems = () => {
             icon: <HomeIcon/>,
             text:'Home',
             link:'/',
+            login:''
         },
         {
             type:style.option,
             icon:<AnnouncementIcon />,
             text:'News',
             link:'/news',
+            login:''
         },
         {
             type:style.option,
             icon:<PlayArrowIcon />,
             text:'Videos',
             link:'/videos',
+            login:''
+        },
+        {
+            type:style.option,
+            icon:<ArrowForwardIcon />,
+            text:'Dashboard',
+            link:'/dashboard',
+            login:false,
         },
         {
             type:style.option,
             icon:<ArrowForwardIcon />,
             text:'Sign In',
             link:'/signIn',
+            login:true,
         },
         {
             type:style.option,
             icon:<ExitToAppIcon />,
             text:'Sign Out',
             link:'/signOut',
+            login:false,
         }
     ]
 
-    const showItems = () => {
-        return items.map( (item, i ) =>{
-            return(
-                <div key={i} className={item.type}>
-                    <Link to={item.link}>
-                        {/* {item.icon}
-                        {item.text} */}
+    const element = (item ,i) => (
+        <div key={i} className={item.type}>
+            <Link to={item.link}>
+                <span style={{margin:0, textAlign:'center'}}>
+                    <div>{item.icon}</div>
+                    <div>{item.text}</div>
+                </span>
+            </Link>
+        </div>
+    )
+
+    const restricted =(item, i)=> {
+        let template= null;
+        //Its for User Login condition ...
+        if(props.user === null && item.login){
+            template = element(item, i);
+        }
+        //Its for user NOT login condition...
+        if( props.user !== null && !item.login){
+            if(item.link === '/signOut'){
+                template = (
+                    <div key={i} 
+                        className={item.type}
+                        onClick={() => {
+                            firebase.auth().signOut()
+                            .then(() => {
+                                props.history.push("/")
+                            })
+                        }}
+                        >
                         <span style={{margin:0, textAlign:'center'}}>
                             <div>{item.icon}</div>
                             <div>{item.text}</div>
                         </span>
-                    </Link>
-                </div>
-            )
+                    </div>
+                )
+            }
+            else{
+                template = element(item, i);
+            }
+        }
+
+        return template;
+    }
+
+    const showItems = () => {
+        return items.map( (item, i ) =>{
+            return item.login !== '' ? 
+                restricted(item, i)
+            : 
+                element(item,i)
         })
     }
 
@@ -78,4 +129,4 @@ const SideNavItems = () => {
     );
 };
 
-export default SideNavItems;
+export default withRouter(SideNavItems);

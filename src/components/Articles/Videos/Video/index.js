@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import {URL} from '../../../../config';
+
+import {firebaseDB, firebaseTeams, firebaseLooper, firebaseVideos} from '../../../../firebase';
 
 import Header from './header';
-
 import VideosRelated from '../../../widgets/VideosList/VideosRelated/videosRelated';
 
 //importing styles
@@ -19,41 +18,54 @@ class VideoArticle extends Component {
     }
 
     componentWillMount(){
-        //Getting the id of that specific videos on which user click...
-        //We are grabbing the id from the url of that specific videos...
-        axios.get(`${URL}/videos?id=${this.props.match.params.id}`)
-        .then( response => {
-            //Storing the data after running the upper AXIOS for getting data...
-            let article = response.data[0];
+        //Referencing the id of clicked ARTICLE by the user......
+        firebaseDB.ref(`videos/${this.props.match.params.id}`).once('value')
+        .then((snapshot) => {
+            let article = snapshot.val();
 
-            //Getting the data of team of specific article...
-            axios.get(`${URL}/teams?id=${article.team}`)
-            .then( response => {
+            //Fetching the data of the specific clicked article...
+            firebaseTeams.orderByChild("id").equalTo(article.team).once('value')
+            .then((snapshot) => {
+                const team = firebaseLooper(snapshot);
                 this.setState({
-                    //Setting the data of team from that specific article...
                     article,
-                    team:response.data,
+                    team,
                 });
-                //Calling the method of RELATED VIDEOS...
                 this.getRelated();
             })
-
         })
     }
 
     //This function is use for fetching the related videos as the title of the live video.
     getRelated =() =>{
-        axios.get(`${URL}/teams`)
-        .then(response => {
-            let teams = response.data;
-            axios.get(`${URL}/videos?q=${this.state.team[0].city}&_limit=3`)
-            .then( response => {
-                this.setState ({
+        //Fetching data of the related teams...
+        firebaseTeams.once('value')
+        .then((snapshot) => {
+            const teams = firebaseLooper(snapshot);
+
+            firebaseVideos.orderByChild("team").equalTo(this.state.article.team).limitToFirst(3).once('value')
+            .then((snapshot) => {
+                const related = firebaseLooper(snapshot);
+                this.setState({
                     teams,
-                    related : response.data,
+                    related
                 })
             })
+
         })
+
+
+        // axios.get(`${URL}/teams`)
+        // .then(response => {
+        //     let teams = response.data;
+        //     axios.get(`${URL}/videos?q=${this.state.team[0].city}&_limit=3`)
+        //     .then( response => {
+        //         this.setState ({
+        //             teams,
+        //             related : response.data,
+        //         })
+        //     })
+        // })
     }
 
     render() {

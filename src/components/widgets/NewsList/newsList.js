@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {CSSTransition, TransitionGroup } from 'react-transition-group';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+
+import {firebaseTeams, firebaseArticles, firebaseLooper} from '../../../firebase';
 
 import styles from './newsList.module.css';
-import {URL} from '../../../config';
 import Button from '../Buttons/buttons';
 import CardInfo from '../../widgets/CardInfo/cardInfo';
 
@@ -25,27 +25,47 @@ class NewsList extends Component {
     request = (start, end) =>{
 
         if(this.state.teams.length < 1){
-            axios.get(`${URL}/teams`).then( response => {
+            firebaseTeams.once('value')
+            .then((snapshot) => {
+                const teams = firebaseLooper(snapshot)
                 this.setState({
-                    teams: response.data,
+                    teams
                 })
             })
+            
+            // axios.get(`${URL}/teams`).then( response => {
+            //     this.setState({
+            //         teams: response.data,
+            //     })
+            // })
         }
 
-
-        axios.get(`${URL}/articles?_start=${start}&_end=${end}`)
-            .then( response => {
-                this.setState({
-                    items:[...this.state.items, ...response.data],
-                    start,
-                    end,
-                })
+        firebaseArticles.orderByChild('id').startAt(start).endAt(end).once('value')
+        .then((snapshot) => {
+            const articles = firebaseLooper(snapshot)
+            this.setState({
+                items:[...this.state.items, ...articles],
+                start,
+                end,
+            })
         })
+        .catch(e => {
+            console.log(e)
+        })
+
+        // axios.get(`${URL}/articles?_start=${start}&_end=${end}`)
+        //     .then( response => {
+        //         this.setState({
+        //             items:[...this.state.items, ...response.data],
+        //             start,
+        //             end,
+        //         })
+        // })
     }
 
     loadMore = () => {
         let end = this.state.end + this.state.amount;
-        this.request( this.state.end, end);
+        this.request( this.state.end + 1, end);
     }
 
     renderNews = (type) => {
