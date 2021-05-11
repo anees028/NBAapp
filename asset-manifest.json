@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/NBAapp/static/css/main.a45c8946.chunk.css",
+    "main.js": "/NBAapp/static/js/main.e2eb6cc1.chunk.js",
+    "main.js.map": "/NBAapp/static/js/main.e2eb6cc1.chunk.js.map",
+    "runtime-main.js": "/NBAapp/static/js/runtime-main.e3e1ed5f.js",
+    "runtime-main.js.map": "/NBAapp/static/js/runtime-main.e3e1ed5f.js.map",
+    "static/css/2.979034dc.chunk.css": "/NBAapp/static/css/2.979034dc.chunk.css",
+    "static/js/2.d9ea5727.chunk.js": "/NBAapp/static/js/2.d9ea5727.chunk.js",
+    "static/js/2.d9ea5727.chunk.js.map": "/NBAapp/static/js/2.d9ea5727.chunk.js.map",
+    "index.html": "/NBAapp/index.html",
+    "static/css/2.979034dc.chunk.css.map": "/NBAapp/static/css/2.979034dc.chunk.css.map",
+    "static/css/main.a45c8946.chunk.css.map": "/NBAapp/static/css/main.a45c8946.chunk.css.map",
+    "static/js/2.d9ea5727.chunk.js.LICENSE.txt": "/NBAapp/static/js/2.d9ea5727.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e3e1ed5f.js",
+    "static/css/2.979034dc.chunk.css",
+    "static/js/2.d9ea5727.chunk.js",
+    "static/css/main.a45c8946.chunk.css",
+    "static/js/main.e2eb6cc1.chunk.js"
+  ]
+}
